@@ -1,6 +1,6 @@
 'use strict';
 
-var test = require('tape').test;
+var test = require('tap').test;
 var clip = require('./');
 
 test('clips line', function (t) {

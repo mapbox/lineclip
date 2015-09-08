@@ -1,4 +1,4 @@
-## linematch
+## lineclip
 
 A fast Cohen-Sutherland line clipping algorithm implementation. Given a LineString and a bounding box, outputs an array of LineStrings.
 

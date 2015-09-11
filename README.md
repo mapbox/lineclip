@@ -41,11 +41,11 @@ Install with NPM:
 npm install lineclip
 ```
 
-To build a browser-compatible version:
+To build a browser-compatible version, clone the repository locally, then run:
 
 ```
 npm install -g browserify
-browserify -s lineclip > lineclip.js
+browserify -s lineclip index.js > lineclip.js
 ```
 
 

@@ -59,15 +59,14 @@ function lineclip(points, bbox, result) {
 
 function polygonclip(points, bbox) {
 
-    var len = points.length,
-        result, edge, prev, prevInside, i, p, inside;
+    var result, edge, prev, prevInside, i, p, inside;
 
     for (edge = 1; edge <= 8; edge *= 2) {
         result = [];
-        prev = points[len - 1];
+        prev = points[points.length - 1];
         prevInside = !(bitCode(prev, bbox) & edge);
 
-        for (i = 0; i < len; i++) {
+        for (i = 0; i < points.length; i++) {
             p = points[i];
             inside = !(bitCode(p, bbox) & edge);
 

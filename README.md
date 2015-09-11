@@ -51,6 +51,10 @@ browserify -s lineclip index.js > lineclip.js
 
 ### Changelog
 
+#### 1.1.3 (Sep 12, 2015)
+
+- Fixed a polygon clipping race condition.
+
 #### 1.1.2 (Sep 11, 2015)
 
 - Fixed a bug that completely broke the clipping on many cases. Sorry!

@@ -2,18 +2,23 @@
 
 module.exports = lineclip;
 
+lineclip.polyline = lineclip;
+lineclip.polygon = polygonclip;
+
+
 function lineclip(points, bbox, result) {
     var len = points.length,
         codeA = bitCode(points[0], bbox),
-        part = [];
+        part = [],
+        i, a, b, codeB;
 
     if (!result) result = [];
 
-    for (var i = 0; i < len - 1; i++) {
+    for (i = 0; i < len - 1; i++) {
 
-        var a = points[i],
-            b = points[i + 1],
-            codeB = bitCode(b, bbox);
+        a = points[i];
+        b = points[i + 1];
+        codeB = bitCode(b, bbox);
 
         if (!(codeA | codeB)) { // trivial accept
             part.push(a);
@@ -24,9 +29,7 @@ function lineclip(points, bbox, result) {
 
         } else if (codeA) { // segment goes inside
             part.push(intersect(a, b, codeA, bbox));
-
-            // and outside too
-            if (codeB) part.push(intersect(a, b, codeB, bbox));
+            if (codeB) part.push(intersect(a, b, codeB, bbox)); // and outside too
 
         } else { // segment goes outside
             part.push(a);
@@ -46,11 +49,39 @@ function lineclip(points, bbox, result) {
     return result;
 }
 
+function polygonclip(points, bbox) {
+
+    var len = points.length,
+        result, edge, prev, prevInside, i, p, inside;
+
+    for (edge = 1; edge <= 8; edge *= 2) {
+        result = [];
+        prev = points[len - 1];
+        prevInside = !(bitCode(prev, bbox) & edge);
+
+        for (i = 0; i < len; i++) {
+            p = points[i];
+            inside = !(bitCode(p, bbox) & edge);
+
+            if (inside !== prevInside) result.push(intersect(prev, p, edge, bbox));
+            if (inside) result.push(p);
+
+            prev = p;
+            prevInside = inside;
+        }
+
+        points = result;
+    }
+
+    return result;
+}
+
 function intersect(a, b, edge, bbox) {
-    return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - b[0]) / (b[1] - b[0]), bbox[3]] :
-           edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - b[0]) / (b[1] - b[0]), bbox[1]] :
-           edge & 2 ? [bbox[2], a[1] + (b[1] - a[1]) * (bbox[2] - a[0]) / (b[0] - a[0])] :
-           edge & 1 ? [bbox[0], a[1] + (b[1] - a[1]) * (bbox[0] - a[0]) / (b[0] - a[0])] : null;
+    return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - b[0]) / (b[1] - b[0]), bbox[3]] : // top
+           edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - b[0]) / (b[1] - b[0]), bbox[1]] : // bottom
+           edge & 2 ? [bbox[2], a[1] + (b[1] - a[1]) * (bbox[2] - a[0]) / (b[0] - a[0])] : // right
+           edge & 1 ? [bbox[0], a[1] + (b[1] - a[1]) * (bbox[0] - a[0]) / (b[0] - a[0])] : // left
+           null;
 }
 
 function bitCode(p, bbox) {

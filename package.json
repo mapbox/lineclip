@@ -1,6 +1,6 @@
 {
   "name": "lineclip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fast Cohen-Sutherland line clipping implementation.",
   "main": "index.js",
   "devDependencies": {

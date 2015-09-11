@@ -3,10 +3,10 @@
 [![Build Status](https://travis-ci.org/mapbox/lineclip.svg?branch=master)](https://travis-ci.org/mapbox/lineclip)
 [![Coverage Status](https://coveralls.io/repos/mapbox/lineclip/badge.svg?branch=master&service=github)](https://coveralls.io/github/mapbox/lineclip?branch=master)
 
-A very fast JavaScript library for clipping polylines and polygons (by an axis-aligned rectangle).
+A very fast JavaScript library for clipping polylines and polygons by a bounding box.
 
 - uses [Cohen-Sutherland algorithm](https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm) for line clipping
-- uses [Sutherland-Hodgeman algorithm](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) for polygon clipping
+- uses [Sutherland-Hodgman algorithm](https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm) for polygon clipping
 
 ```js
 lineclip(
@@ -18,11 +18,7 @@ lineclip(
 
 ### API
 
-#### polyline
-
-```js
-lineclip.polyline(points, bbox[, result])
-```
+#### lineclip.polyline(points, bbox[, result])
 
 - `points` — an array of `[x, y]` points
 - `bbox` — a bounding box as `[xmin, ymin, xmax, ymax]`
@@ -32,11 +28,7 @@ Returns an array of clipped lines.
 
 `lineclip` is an alias to `lineclip.polyline`.
 
-#### polygon
-
-```js
-lineclip.polygon(points, bbox)
-```
+#### lineclip.polygon(points, bbox)
 
 Returns a clipped polygon.
 

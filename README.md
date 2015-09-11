@@ -51,6 +51,10 @@ browserify -s lineclip index.js > lineclip.js
 
 ### Changelog
 
+#### 1.1.2 (Sep 11, 2015)
+
+- Fixed a bug that completely broke the clipping on many cases. Sorry!
+
 #### 1.1.1 (Sep 11, 2015)
 
 - Fixed a polyline clipping edge case.
@@ -58,7 +62,6 @@ browserify -s lineclip index.js > lineclip.js
 #### 1.1.0 (Sep 11, 2015)
 
 - Added Sutherland-Hodgeman polygon clipping (`lineclip.polygon`).
-- 2.5 times faster line clipping.
 
 #### 1.0.1 (Sep 11, 2015)
 

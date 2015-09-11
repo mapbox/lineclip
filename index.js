@@ -9,35 +9,47 @@ lineclip.polygon = polygonclip;
 function lineclip(points, bbox, result) {
     var len = points.length,
         part = [],
-        a = points[0],
-        codeA = bitCode(a, bbox),
-        i, b, codeB;
+        codeA = bitCode(points[0], bbox),
+        i, a, b, codeB, lastCode, endClipped;
 
     if (!result) result = [];
 
     for (i = 1; i < len; i++) {
+        a = points[i - 1];
         b = points[i];
-        codeB = bitCode(b, bbox);
+        endClipped = false;
+        codeB = lastCode = bitCode(b, bbox);
 
-        if (!codeA && !codeB) { // trivial accept
-            part.push(a);
+        while (true) {
 
-        } else if (!(codeA & codeB)) { // segment goes inside or outside
+            if (!codeA && !codeB) { // accept
+                part.push(a);
 
-            if (codeA) part.push(intersect(a, b, codeA, bbox)); // goes inside
-            else part.push(a);
+                if (endClipped) {
+                    part.push(b);
 
-            if (codeB) { // goes outside
-                part.push(intersect(a, b, codeB, bbox));
-                if (i < len - 1) {
-                    result.push(part);
-                    part = [];
+                    if (i < len - 1) {
+                        result.push(part);
+                        part = [];
+                    }
                 }
+                break;
+
+            } else if (codeA & codeB) { // trivial reject
+                break;
+
+            } else if (codeA) {
+                a = intersect(a, b, codeA, bbox);
+                codeA = bitCode(a, bbox);
+
+            } else {
+                b = intersect(a, b, codeB, bbox);
+                codeB = bitCode(b, bbox);
+                endClipped = true;
             }
         }
 
-        a = b;
-        codeA = codeB;
+        codeA = lastCode;
     }
 
     result.push(part);
@@ -73,8 +85,8 @@ function polygonclip(points, bbox) {
 }
 
 function intersect(a, b, edge, bbox) {
-    return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - b[0]) / (b[1] - b[0]), bbox[3]] : // top
-           edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - b[0]) / (b[1] - b[0]), bbox[1]] : // bottom
+    return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - a[1]) / (b[1] - a[1]), bbox[3]] : // top
+           edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - a[1]) / (b[1] - a[1]), bbox[1]] : // bottom
            edge & 2 ? [bbox[2], a[1] + (b[1] - a[1]) * (bbox[2] - a[0]) / (b[0] - a[0])] : // right
            edge & 1 ? [bbox[0], a[1] + (b[1] - a[1]) * (bbox[0] - a[0]) / (b[0] - a[0])] : // left
            null;

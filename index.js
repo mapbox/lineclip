@@ -23,34 +23,34 @@ function lineclip(line, bbox, result) {
             y1 = b[1],
             codeB = bitCode(b[0], b[1], bbox),
             lastCode = codeB,
+            accept = false,
+            startClipped = false,
+            endClipped = false,
             codeOut, x, y;
 
         while (true) {
-            if (!(codeA | codeB)) {
-                part.push(a[0] !== x0 || a[1] !== y0 ? [x0, y0] : a);
-
-                if (b[0] !== x1 || b[1] !== y1 || i === len - 2) {
-                    part.push([x1, y1]);
-                    result.push(part);
-                    part = [];
-                }
+            if (!(codeA | codeB)) { // both points inside
+                accept = true;
                 break;
 
-            } else if (codeA & codeB) {
+            } else if (codeA & codeB) { // both points outside
                 break;
 
-            } else {
+            } else { // one point inside, the other outside
                 codeOut = codeA ? codeA : codeB;
 
                 if (codeOut & 8) { // above
                     x = x0 + (x1 - x0) * (ymax - y0) / (y1 - y0);
                     y = ymax;
+
                 } else if (codeOut & 4) { // below
                     x = x0 + (x1 - x0) * (ymin - y0) / (y1 - y0);
                     y = ymin;
+
                 } else if (codeOut & 2) { // right
                     y = y0 + (y1 - y0) * (xmax - x0) / (x1 - x0);
                     x = xmax;
+
                 } else if (codeOut & 1) { // left
                     y = y0 + (y1 - y0) * (xmin - x0) / (x1 - x0);
                     x = xmin;
@@ -59,12 +59,24 @@ function lineclip(line, bbox, result) {
                 if (codeOut === codeA) {
                     x0 = x;
                     y0 = y;
+                    startClipped = true;
                     codeA = bitCode(x, y, bbox);
                 } else {
                     x1 = x;
                     y1 = y;
+                    endClipped = true;
                     codeB = bitCode(x, y, bbox);
                 }
+            }
+        }
+
+        if (accept) {
+            part.push(startClipped ? [x0, y0] : a);
+
+            if (endClipped || i === len - 2) {
+                part.push([x1, y1]);
+                result.push(part);
+                part = [];
             }
         }
 

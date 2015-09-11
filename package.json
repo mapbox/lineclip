@@ -4,6 +4,7 @@
   "description": "A fast Cohen-Sutherland line clipping implementation.",
   "main": "index.js",
   "devDependencies": {
+    "benchmark": "^1.0.0",
     "eslint": "^1.3.1",
     "tap": "^1.4.0"
   },

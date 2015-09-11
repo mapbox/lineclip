@@ -43,6 +43,10 @@ Returns a clipped polygon.
 
 ### Changelog
 
+#### 1.1.1 (Sep 11, 2015)
+
+- Fixed a polyline clipping edge case.
+
 #### 1.1.0 (Sep 11, 2015)
 
 - Added Sutherland-Hodgeman polygon clipping (`lineclip.polygon`).

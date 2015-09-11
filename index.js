@@ -8,39 +8,35 @@ lineclip.polygon = polygonclip;
 
 function lineclip(points, bbox, result) {
     var len = points.length,
-        codeA = bitCode(points[0], bbox),
         part = [],
-        i, a, b, codeB;
+        a = points[0],
+        codeA = bitCode(a, bbox),
+        i, b, codeB;
 
     if (!result) result = [];
 
-    for (i = 0; i < len - 1; i++) {
-
-        a = points[i];
-        b = points[i + 1];
+    for (i = 1; i < len; i++) {
+        b = points[i];
         codeB = bitCode(b, bbox);
 
-        if (!(codeA | codeB)) { // trivial accept
+        if (!codeA && !codeB) { // trivial accept
             part.push(a);
 
-        } else if (codeA & codeB) { // trivial reject
-            codeA = codeB;
-            continue;
+        } else if (!(codeA & codeB)) { // segment goes inside or outside
 
-        } else if (codeA) { // segment goes inside
-            part.push(intersect(a, b, codeA, bbox));
-            if (codeB) part.push(intersect(a, b, codeB, bbox)); // and outside too
+            if (codeA) part.push(intersect(a, b, codeA, bbox)); // goes inside
+            else part.push(a);
 
-        } else { // segment goes outside
-            part.push(a);
-            part.push(intersect(a, b, codeB, bbox));
-
-            if (i < len - 2) {
-                result.push(part);
-                part = [];
+            if (codeB) { // goes outside
+                part.push(intersect(a, b, codeB, bbox));
+                if (i < len - 1) {
+                    result.push(part);
+                    part = [];
+                }
             }
         }
 
+        a = b;
         codeA = codeB;
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "lineclip",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A fast polyline and polygon clipping library.",
   "main": "index.js",
   "devDependencies": {

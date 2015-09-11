@@ -9,8 +9,11 @@ var line = [[-10, 10], [10, 10], [10, -10], [20, -10], [20, 10], [40, 10],
 var bbox = [0, 0, 30, 30];
 
 new Suite()
-.add('lineclip', function () {
+.add('polyline', function () {
     lineclip(line, bbox);
+})
+.add('polygon', function () {
+    lineclip.polygon(line, bbox);
 })
 .on('cycle', function(event) {
     console.log(event.target.toString());

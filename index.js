@@ -7,28 +7,28 @@ lineclip.polygon = polygonclip;
 
 
 function lineclip(points, bbox, result) {
+
     var len = points.length,
-        part = [],
         codeA = bitCode(points[0], bbox),
-        i, a, b, codeB, lastCode, endClipped;
+        part = [],
+        i, a, b, codeB, lastCode;
 
     if (!result) result = [];
 
     for (i = 1; i < len; i++) {
         a = points[i - 1];
         b = points[i];
-        endClipped = false;
         codeB = lastCode = bitCode(b, bbox);
 
         while (true) {
 
-            if (!codeA && !codeB) { // accept
+            if (!(codeA | codeB)) { // accept
                 part.push(a);
 
-                if (endClipped) {
+                if (codeB !== lastCode) { // segment went outside
                     part.push(b);
 
-                    if (i < len - 1) {
+                    if (i < len - 1) { // start a new line
                         result.push(part);
                         part = [];
                     }
@@ -38,14 +38,13 @@ function lineclip(points, bbox, result) {
             } else if (codeA & codeB) { // trivial reject
                 break;
 
-            } else if (codeA) {
+            } else if (codeA) { // a outside, intersect with clip edge
                 a = intersect(a, b, codeA, bbox);
                 codeA = bitCode(a, bbox);
 
-            } else {
+            } else { // b outside
                 b = intersect(a, b, codeB, bbox);
                 codeB = bitCode(b, bbox);
-                endClipped = true;
             }
         }
 
@@ -61,6 +60,7 @@ function polygonclip(points, bbox) {
 
     var result, edge, prev, prevInside, i, p, inside;
 
+    // clip against each side of the clip rectangle
     for (edge = 1; edge <= 8; edge *= 2) {
         result = [];
         prev = points[points.length - 1];
@@ -70,8 +70,10 @@ function polygonclip(points, bbox) {
             p = points[i];
             inside = !(bitCode(p, bbox) & edge);
 
+            // if segment goes through the clip window, add an intersection
             if (inside !== prevInside) result.push(intersect(prev, p, edge, bbox));
-            if (inside) result.push(p);
+
+            if (inside) result.push(p); // add a point if it's inside
 
             prev = p;
             prevInside = inside;

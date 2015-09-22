@@ -6,6 +6,9 @@ lineclip.polyline = lineclip;
 lineclip.polygon = polygonclip;
 
 
+// Cohen-Sutherland line clippign algorithm, adapted to efficiently
+// handle polylines rather than just segments
+
 function lineclip(points, bbox, result) {
 
     var len = points.length,
@@ -58,6 +61,8 @@ function lineclip(points, bbox, result) {
     return result;
 }
 
+// Sutherland-Hodgeman polygon clipping algorithm
+
 function polygonclip(points, bbox) {
 
     var result, edge, prev, prevInside, i, p, inside;
@@ -87,6 +92,8 @@ function polygonclip(points, bbox) {
     return result;
 }
 
+// intersect a segment against one of the 4 lines that make up the bbox
+
 function intersect(a, b, edge, bbox) {
     return edge & 8 ? [a[0] + (b[0] - a[0]) * (bbox[3] - a[1]) / (b[1] - a[1]), bbox[3]] : // top
            edge & 4 ? [a[0] + (b[0] - a[0]) * (bbox[1] - a[1]) / (b[1] - a[1]), bbox[1]] : // bottom
@@ -94,6 +101,13 @@ function intersect(a, b, edge, bbox) {
            edge & 1 ? [bbox[0], a[1] + (b[1] - a[1]) * (bbox[0] - a[0]) / (b[0] - a[0])] : // left
            null;
 }
+
+// bit code reflects the point position relative to the bbox:
+
+//         left  mid  right
+//    top  1001  1000  1010
+//    mid  0001  0000  0010
+// bottom  0101  0100  0110
 
 function bitCode(p, bbox) {
     var code = 0;

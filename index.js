@@ -32,6 +32,8 @@ function lineclip(points, bbox, result) {
                         result.push(part);
                         part = [];
                     }
+                } else if (i === len - 1) {
+                    part.push(b);
                 }
                 break;
 

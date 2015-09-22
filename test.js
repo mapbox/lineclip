@@ -70,4 +70,16 @@ test('clips floating point lines', function (t) {
     ]]);
 
     t.end();
-})
+});
+
+test('preserves line if no protrusions exist', function (t) {
+    var result = clip([
+        [1, 1], [2, 2], [3, 3]],
+        [0, 0, 30, 30]);
+
+    t.same(result, [
+        [[1, 1], [2, 2], [3, 3]]
+    ]);
+
+    t.end();
+});

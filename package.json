@@ -9,12 +9,12 @@
     "tap": "^1.4.0"
   },
   "scripts": {
-    "test": "eslint index.js test.js && tap test.js",
+    "test": "tap test.js && eslint index.js test.js",
     "cov": "tap test.js --cov"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapbox/linematch.git"
+    "url": "git+https://github.com/mapbox/lineclip.git"
   },
   "keywords": [
     "algorithm",
@@ -29,7 +29,7 @@
   "author": "Vladimir Agafonkin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mapbox/linematch/issues"
+    "url": "https://github.com/mapbox/lineclip/issues"
   },
-  "homepage": "https://github.com/mapbox/linematch#readme"
+  "homepage": "https://github.com/mapbox/lineclip#readme"
 }

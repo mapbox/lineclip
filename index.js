@@ -53,7 +53,7 @@ function lineclip(points, bbox, result) {
         codeA = lastCode;
     }
 
-    result.push(part);
+    if (part.length) result.push(part);
 
     return result;
 }

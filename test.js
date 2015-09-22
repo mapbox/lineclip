@@ -83,3 +83,13 @@ test('preserves line if no protrusions exist', function (t) {
 
     t.end();
 });
+
+test('clips without leaving empty parts', function (t) {
+    var result = clip([
+        [40, 40], [50, 50]],
+        [0, 0, 30, 30]);
+
+    t.same(result, []);
+
+    t.end();
+});

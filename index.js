@@ -75,7 +75,6 @@ function polygonclip(points, bbox) {
             break; 
         }
         prevInside = !(bitCode(prev, bbox) & edge);
-        
         for (i = 0; i < points.length; i++) {
             p = points[i];
             inside = !(bitCode(p, bbox) & edge);

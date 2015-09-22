@@ -87,6 +87,8 @@ function polygonclip(points, bbox) {
         }
 
         points = result;
+
+        if (!points.length) break;
     }
 
     return result;

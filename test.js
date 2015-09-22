@@ -93,3 +93,13 @@ test('clips without leaving empty parts', function (t) {
 
     t.end();
 });
+
+test('still works when polygon never crosses bbox', function (t) {
+    var result = clip.polygon([
+        [3, 3], [5, 3], [5, 5], [3, 5], [3, 3]],
+        [0, 0, 2, 2]);
+
+    t.same(result, []);
+
+    t.end();
+});

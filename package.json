@@ -6,6 +6,7 @@
   "devDependencies": {
     "benchmark": "^1.0.0",
     "eslint": "^1.5.0",
+    "eslint-config-mapbox": "^1.0.0",
     "tap": "^1.4.0"
   },
   "scripts": {

@@ -51,6 +51,10 @@ browserify -s lineclip index.js > lineclip.js
 
 ### Changelog
 
+#### 1.1.5 (Sep 23, 2015)
+
+- Fixed a bug where polygon clip broke on out-of-bbox polygons.
+
 #### 1.1.4 (Sep 22, 2015)
 
 - Fixed a bug where last point was omitted if the last two points are in bbox.

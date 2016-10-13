@@ -4,10 +4,10 @@
   "description": "A fast polyline and polygon clipping library.",
   "main": "index.js",
   "devDependencies": {
-    "benchmark": "^1.0.0",
-    "eslint": "^1.5.0",
-    "eslint-config-mourner": "^1.0.0",
-    "tap": "^1.4.0"
+    "benchmark": "^2.1.1",
+    "eslint": "^3.7.1",
+    "eslint-config-mourner": "^2.0.1",
+    "tap": "^7.1.2"
   },
   "scripts": {
     "test": "eslint index.js test.js && tap test.js",

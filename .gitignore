@@ -4,3 +4,4 @@ coverage
 .DS_Store
 coverage
 .nyc_output
+yarn.lock

@@ -10,7 +10,7 @@
     "tap": "^7.1.2"
   },
   "scripts": {
-    "test": "eslint index.js test.js && tap test.js",
+    "test": "tap test.js && eslint index.js test.js",
     "cov": "tap test.js --cov"
   },
   "repository": {

@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = lineclip;
+module.exports.default = lineclip;
 
 lineclip.polyline = lineclip;
 lineclip.polygon = polygonclip;

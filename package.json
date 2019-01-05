@@ -30,7 +30,13 @@
   "eslintConfig": {
     "extends": "mourner",
     "rules": {
-      "indent": [2, 4, {"flatTernaryExpressions": true}]
+      "indent": [
+        2,
+        4,
+        {
+          "flatTernaryExpressions": true
+        }
+      ]
     }
   },
   "author": "Vladimir Agafonkin",

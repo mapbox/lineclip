@@ -28,10 +28,17 @@ Returns an array of clipped lines.
 
 `lineclip` is an alias to `lineclip.polyline`.
 
-#### lineclip.polygon(points, bbox)
+#### lineclip.polygon(points, bbox, [clearArtefact])
 
-Returns a clipped polygon.
+Returns :
+- a clipped polygon if clearArtefact is false (default value)
+- a array of polygon if clearArtefact is true 
 
+The generated clipped polygon without "clearArtifact" option - in red on the screenshot - can be a set polygons linked by lines 
+(the bbox edges that clip the given polygon). The "clearArtifact" remove these lines and generate a
+array of polygons - in white -
+
+![Screenshot](clear-artefact.png)
 
 ### Install
 

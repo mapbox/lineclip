@@ -32,23 +32,6 @@ Returns an array of clipped lines.
 
 Returns a clipped polygon.
 
-
-### Install
-
-Install with NPM:
-
-```
-npm install lineclip
-```
-
-To build a browser-compatible version, clone the repository locally, then run:
-
-```
-npm install -g browserify
-browserify -s lineclip index.js > lineclip.js
-```
-
-
 ### Changelog
 
 #### 1.1.5 (Sep 23, 2015)

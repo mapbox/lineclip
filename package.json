@@ -3,15 +3,17 @@
   "version": "1.1.5",
   "description": "A fast polyline and polygon clipping library.",
   "main": "index.js",
+  "type": "module",
+  "exports": "./index.js",
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "eslint": "^5.1.0",
-    "eslint-config-mourner": "^2.0.3",
-    "tap": "^12.0.1"
+    "eslint": "^9.31.0",
+    "eslint-config-mourner": "^4.1.0"
   },
   "scripts": {
-    "test": "eslint index.js test.js && tap test.js",
-    "cov": "tap test.js --cov"
+    "pretest": "eslint *.js",
+    "test": "node test.js",
+    "cov": "node --experimental-test-coverage test.js"
   },
   "repository": {
     "type": "git",
@@ -27,12 +29,6 @@
     "geo",
     "cohen-sutherland"
   ],
-  "eslintConfig": {
-    "extends": "mourner",
-    "rules": {
-      "indent": [2, 4, {"flatTernaryExpressions": true}]
-    }
-  },
   "author": "Vladimir Agafonkin",
   "license": "ISC",
   "bugs": {

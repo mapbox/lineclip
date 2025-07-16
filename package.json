@@ -10,6 +10,7 @@
     "eslint": "^9.31.0",
     "eslint-config-mourner": "^4.1.0"
   },
+  "files": [],
   "scripts": {
     "pretest": "eslint *.js",
     "test": "node test.js",

@@ -1,6 +1,6 @@
 {
   "name": "lineclip",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A fast polyline and polygon clipping library.",
   "main": "index.js",
   "type": "module",
@@ -35,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/mapbox/lineclip/issues"
   },
-  "homepage": "https://github.com/mapbox/lineclip#readme"
+  "homepage": "https://github.com/mapbox/lineclip#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
